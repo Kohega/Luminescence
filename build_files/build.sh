@@ -15,8 +15,8 @@ dnf5 -y copr enable zliced13/YACR
 cat << 'EOF' | tee /etc/yum.repos.d/fedora.repo
 [fedora]
 name=Fedora 41 - x86_64
-#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-41&arch=x86_64
+baseurl=http://download.example/pub/fedora/linux/releases/41/Everything/x86_64/os/
+#metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-41&arch=x86_64
 enabled=1
 countme=1
 metadata_expire=7d
@@ -30,8 +30,8 @@ EOF
 cat << 'EOF' | tee /etc/yum.repos.d/rpmfusion-free-updates.repo
 [rpmfusion-free-updates]
 name=RPM Fusion for Fedora $releasever - Free - Updates
-#baseurl=http://download1.rpmfusion.org/free/fedora/updates/$releasever/$basearch/
-metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
+baseurl=http://download1.rpmfusion.org/free/fedora/updates/42/x86_64
+#metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-42&arch=x86_64
 enabled=1
 enabled_metadata=1
 type=rpm-md
