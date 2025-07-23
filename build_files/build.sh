@@ -12,7 +12,7 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable zliced13/YACR
 
 # Install packages from Fedora repos & COPR
-dnf5 install -y syncthing filezilla firefox firefox-langpacks lact epson-inkjet-printer-escpr naps2 kodi kodi-inputstream-adaptive
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact naps2 #epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
 
 # Add ZeroTier GPG key
 curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
