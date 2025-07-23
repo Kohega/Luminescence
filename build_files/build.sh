@@ -18,7 +18,7 @@ dnf5 install -y syncthing #kodi kodi-inputstream-adaptive
 curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
 
 # Add ZeroTier repository
-cat << 'EOF' | sudo tee /etc/yum.repos.d/zerotier.repo
+cat << 'EOF' | tee /etc/yum.repos.d/zerotier.repo
 [zerotier]
 name=ZeroTier, Inc. RPM Release Repository
 baseurl=http://download.zerotier.com/redhat/fc/42
