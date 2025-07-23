@@ -11,12 +11,12 @@ mkdir /data /games
 dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable zliced13/YACR
 
-# Add Fedora repo
+# Add Fedora 41 repo for Epson driver
 cat << 'EOF' | tee /etc/yum.repos.d/fedora.repo
 [fedora]
-name=Fedora $releasever - $basearch
+name=Fedora 41 - x86_64
 #baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
-metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-41&arch=x86_64
 enabled=1
 countme=1
 metadata_expire=7d
@@ -26,8 +26,25 @@ gpgcheck=0
 skip_if_unavailable=True
 EOF
 
+# Add rpmfusion-free-updates repo
+cat << 'EOF' | tee /etc/yum.repos.d/rpmfusion-free-updates.repo
+[rpmfusion-free-updates]
+name=RPM Fusion for Fedora $releasever - Free - Updates
+#baseurl=http://download1.rpmfusion.org/free/fedora/updates/$releasever/$basearch/
+metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
+enabled=1
+enabled_metadata=1
+type=rpm-md
+gpgcheck=0
+EOF
+
+# Add Fedora repo
+#cat << 'EOF' | tee /etc/yum.repos.d/fedora.repo
+
 # Install packages from Fedora repos & COPR
-dnf5 install -y syncthing filezilla firefox firefox-langpacks lact naps2 epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
+# To add
+# naps2
 
 # Add ZeroTier GPG key
 curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
