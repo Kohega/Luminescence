@@ -11,8 +11,23 @@ mkdir /data /games
 dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable zliced13/YACR
 
+# Add Fedora repo
+cat << 'EOF' | tee /etc/yum.repos.d/fedora.repo
+[fedora]
+name=Fedora $releasever - $basearch
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+enabled=1
+countme=1
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=0
+skip_if_unavailable=True
+EOF
+
 # Install packages from Fedora repos & COPR
-dnf5 install -y syncthing filezilla firefox firefox-langpacks lact #naps2 epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact naps2 epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
 
 # Add ZeroTier GPG key
 curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
@@ -29,19 +44,20 @@ EOF
 # Install ZeroTier
 dnf install -y zerotier-one
 
-# Remove Zerotier repo
+# Remove repos
 rm /etc/yum.repos.d/zerotier.repo -f
+rm /etc/yum.repos.d/fedora.repo -f
 
 # Eddie - Airvpn
-wget https://airvpn.org/mirrors/eddie.website/download/?platform=linux&arch=x64&ui=ui&format=fedora.rpm&version=2.24.6&r=0.4094494104642836
-sudo rpm -U ./eddie-ui_2.24.6_linux_x64_fedora.rpm
-rm eddie-ui_2.24.6_linux_x64_fedora.rpm
+#wget https://airvpn.org/mirrors/eddie.website/download/?platform=linux&arch=x64&ui=ui&format=fedora.rpm&version=2.24.6&r=0.4094494104642836
+#sudo rpm -U ./eddie-ui_2.24.6_linux_x64_fedora.rpm
+#rm eddie-ui_2.24.6_linux_x64_fedora.rpm
 
 # losslesscut
-wget -o losslesscut.AppImage https://github.com/mifi/lossless-cut/releases/download/latest/LosslessCut.AppImage
-mkdir /home/kohega/Applications
-mv losslesscut.AppImage /home/kohega/Applications/
-chmod +x /home/kohega/Applications/LosslessCut.AppImage
+#wget -o losslesscut.AppImage https://github.com/mifi/lossless-cut/releases/download/latest/LosslessCut.AppImage
+#mkdir /home/kohega/Applications
+#mv losslesscut.AppImage /home/kohega/Applications/
+#chmod +x /home/kohega/Applications/LosslessCut.AppImage
 
 # Allow Samba on home dirs
 setsebool -P samba_enable_home_dirs=1
