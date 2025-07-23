@@ -14,18 +14,20 @@ mkdir /data /games
 # this installs a package from fedora repos
 dnf5 install -y syncthing #kodi kodi-inputstream-adaptive
 
-## Install ZeroTierOne
-# Setup repo
-cat << EOF > /etc/yum.repos.d/zerotier.repo
+# Add ZeroTier GPG key
+curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
+
+# Add ZeroTier repository
+cat << 'EOF' | sudo tee /etc/yum.repos.d/zerotier.repo
 [zerotier]
 name=ZeroTier, Inc. RPM Release Repository
-baseurl=http://download.zerotier.com/redhat/fc/22
+baseurl=http://download.zerotier.com/redhat/fc/$releasever
 enabled=1
-gpgcheck=0
+gpgcheck=1
 EOF
 
-# Install Zerotier
-#dnf install -y zerotier-one
+# Install ZeroTier
+dnf install -y zerotier-one
 
 # Remove Zerotier repo
 rm /etc/yum.repos.d/zerotier.repo -f
@@ -41,4 +43,4 @@ rm /etc/yum.repos.d/zerotier.repo -f
 
 #### Example for enabling a System Unit File
 
-systemctl enable podman.socket syncthing@kohega.service
+systemctl enable podman.socket syncthing@kohega.service zerotier-one.service
