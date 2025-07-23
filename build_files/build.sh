@@ -12,7 +12,7 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable zliced13/YACR
 
 # Install packages from Fedora repos & COPR
-dnf5 install -y syncthing filezilla firefox firefox-langpacks lact naps2 #epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact #naps2 epson-inkjet-printer-escpr kodi kodi-inputstream-adaptive
 
 # Add ZeroTier GPG key
 curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
@@ -39,6 +39,7 @@ rm eddie-ui_2.24.6_linux_x64_fedora.rpm
 
 # losslesscut
 wget -o losslesscut.AppImage https://github.com/mifi/lossless-cut/releases/download/latest/LosslessCut.AppImage
+mkdir /home/kohega/Applications
 mv losslesscut.AppImage /home/kohega/Applications/
 chmod +x /home/kohega/Applications/LosslessCut.AppImage
 
@@ -47,13 +48,6 @@ setsebool -P samba_enable_home_dirs=1
 
 dnf5 -y copr disable ilyaz/LACT
 dnf5 -y copr disable zliced13/YACR
-
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
 
 # Remove Fedora Firefox homepage
 sudo rm -f /usr/lib64/firefox/browser/defaults/preferences/firefox-redhat-default-prefs.js
