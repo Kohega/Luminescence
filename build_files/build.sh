@@ -12,7 +12,7 @@ mkdir /data /games
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-#dnf5 install -y kodi kodi-inputstream-adaptive syncthing
+dnf5 install -y syncthing #kodi kodi-inputstream-adaptive
 
 ## Install ZeroTierOne
 # Setup repo
