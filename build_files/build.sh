@@ -4,15 +4,15 @@ set -ouex pipefail
 
 ### Create root directory for hdd mount points 
 mkdir /data /games
+
 ### Install packages
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
+# Enable needed COPR repos
+dnf5 -y copr enable ilyaz/LACT
+dnf5 -y copr enable zliced13/YACR
 
-# this installs a package from fedora repos
-dnf5 install -y syncthing #kodi kodi-inputstream-adaptive
+# Install packages from Fedora repos & COPR
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact epson-inkjet-printer-escpr naps2 kodi kodi-inputstream-adaptive
 
 # Add ZeroTier GPG key
 curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
@@ -32,6 +32,21 @@ dnf install -y zerotier-one
 # Remove Zerotier repo
 rm /etc/yum.repos.d/zerotier.repo -f
 
+# Eddie - Airvpn
+wget https://airvpn.org/mirrors/eddie.website/download/?platform=linux&arch=x64&ui=ui&format=fedora.rpm&version=2.24.6&r=0.4094494104642836
+sudo rpm -U ./eddie-ui_2.24.6_linux_x64_fedora.rpm
+rm eddie-ui_2.24.6_linux_x64_fedora.rpm
+
+# losslesscut
+wget -o losslesscut.AppImage https://github.com/mifi/lossless-cut/releases/download/latest/LosslessCut.AppImage
+mv losslesscut.AppImage /home/kohega/Applications/
+chmod +x /home/kohega/Applications/LosslessCut.AppImage
+
+# Allow Samba on home dirs
+setsebool -P samba_enable_home_dirs=1
+
+dnf5 -y copr disable ilyaz/LACT
+dnf5 -y copr disable zliced13/YACR
 
 # Use a COPR Example:
 #
@@ -40,7 +55,12 @@ rm /etc/yum.repos.d/zerotier.repo -f
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
 
+# Remove Fedora Firefox homepage
+sudo rm -f /usr/lib64/firefox/browser/defaults/preferences/firefox-redhat-default-prefs.js
 
 #### Example for enabling a System Unit File
 
-systemctl enable podman.socket syncthing@kohega.service zerotier-one.service
+systemctl enable podman.socket syncthing@kohega.service zerotier-one.service lactd.service
+
+# Enable ZeroTier
+zerotier-cli join db64858feddb6902
