@@ -46,6 +46,3 @@ dnf5 -y copr disable zliced13/YACR
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket syncthing@kohega.service zerotier-one.service lactd.service
-
-# Enable ZeroTier
-zerotier-cli join db64858feddb6902
