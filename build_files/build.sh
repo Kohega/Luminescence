@@ -43,9 +43,6 @@ setsebool -P samba_enable_home_dirs=1
 dnf5 -y copr disable ilyaz/LACT
 dnf5 -y copr disable zliced13/YACR
 
-# Remove Fedora Firefox homepage
-sudo rm -f /usr/lib64/firefox/browser/defaults/preferences/firefox-redhat-default-prefs.js
-
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket syncthing@kohega.service zerotier-one.service lactd.service
