@@ -12,11 +12,11 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable zliced13/YACR
 
 # Install packages from Fedora repos & COPR
-dnf5 install -y syncthing filezilla firefox firefox-langpacks lact #kodi kodi-inputstream-adaptive
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact cups-filesystem cups-libs rustdesk #kodi kodi-inputstream-adaptive
 
 # Install RPMs
 dnf5 install -y /ctx/rpm/eddie-ui_2.24.6_linux_x64_fedora.rpm
-dnf5 install -y /ctx/rpm/eddie-ui_2.24.6_linux_x64_fedora.rpm
+dnf5 install -y /ctx/rpm/epson-inkjet-printer-escpr-1.7.21-7.1lsb3.2.fc41.x86_64.rpm
 dnf5 install -y /ctx/rpm/naps2-8.2.0-linux-x64.rpm
 
 # Add ZeroTier GPG key
