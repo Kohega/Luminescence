@@ -12,7 +12,7 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y copr enable zliced13/YACR
 
 # Install packages from Fedora repos & COPR
-dnf5 install -y syncthing filezilla firefox firefox-langpacks lact cups-filesystem cups-libs rustdesk #kodi kodi-inputstream-adaptive
+dnf5 install -y syncthing filezilla firefox firefox-langpacks lact #kodi kodi-inputstream-adaptive
 
 # Install RPMs
 dnf5 install -y /ctx/rpm/eddie-ui_2.24.6_linux_x64_fedora.rpm
