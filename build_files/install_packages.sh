@@ -13,8 +13,6 @@ log "Enable Copr repos"
 COPR_REPOS=(
     ilyaz/LACT
     zliced13/YACR
-    bieszczaders/kernel-cachyos
-    bieszczaders/kernel-cachyos-addons
 )
 for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
@@ -36,10 +34,6 @@ LAYERED_PACKAGES=(
     firefox
     firefox-langpacks
     lact
-    kernel-cachyos
-    kernel-cachyos-devel-matched
-    cachyos-settings
-
 )
 dnf5 install --setopt=install_weak_deps=False --allowerasing -y "${LAYERED_PACKAGES[@]}"
 
