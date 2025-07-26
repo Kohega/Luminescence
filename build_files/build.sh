@@ -25,6 +25,12 @@ log "Starting building"
 ### Create root directory for hdd mount points 
 mkdir /data /games
 
+for sh_script in /ctx/*.sh; do
+  if [ -f "$sh_script" ]; then
+        chmod +x "$sh_script"
+    fi
+done
+
 ### Install packages
 log "Installing apps"
 echo_group /ctx/install_packages.sh
