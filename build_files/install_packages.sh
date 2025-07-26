@@ -24,7 +24,6 @@ log "Install layered applications"
 
 # Layered Applications
 LAYERED_PACKAGES=(
-    cifs_utils
     kcalc
     konsole
     kate
@@ -37,13 +36,12 @@ LAYERED_PACKAGES=(
     firefox
     firefox-langpacks
     lact
-    discord
     kernel-cachyos
     kernel-cachyos-devel-matched
     cachyos-settings
 
 )
-dnf5 install --setopt=install_weak_deps=False -y "${LAYERED_PACKAGES[@]}"
+dnf5 install --setopt=install_weak_deps=False -allowerasing -y "${LAYERED_PACKAGES[@]}"
 
 log "Disable Copr repos as we do not need it anymore"
 
