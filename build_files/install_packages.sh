@@ -8,13 +8,13 @@ log() {
   echo "=== $* ==="
 }
 
-log "Installing RPM packages"
-
 log "Enable Copr repos"
 
 COPR_REPOS=(
     ilyaz/LACT
     zliced13/YACR
+    bieszczaders/kernel-cachyos
+    bieszczaders/kernel-cachyos-addons
 )
 for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
@@ -28,12 +28,19 @@ LAYERED_PACKAGES=(
     kcalc
     konsole
     kate
+    krename
+    haruna
+    okular
     #kvantum
     syncthing
     filezilla
     firefox
     firefox-langpacks
     lact
+    discord
+    kernel-cachyos
+    kernel-cachyos-devel-matched
+    cachyos-settings
 
 )
 dnf5 install --setopt=install_weak_deps=False -y "${LAYERED_PACKAGES[@]}"
@@ -43,3 +50,25 @@ log "Disable Copr repos as we do not need it anymore"
 for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr disable "$repo"
 done
+
+log "Installing RPM packages"
+
+
+log "Installing ZeroTier"
+# Add ZeroTier GPG key
+curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
+
+# Add ZeroTier repository
+cat << 'EOF' | tee /etc/yum.repos.d/zerotier.repo
+[zerotier]
+name=ZeroTier, Inc. RPM Release Repository
+baseurl=http://download.zerotier.com/redhat/fc/42
+enabled=1
+gpgcheck=0
+EOF
+
+# Install ZeroTier
+dnf install -y zerotier-one
+
+# Remove repos
+rm /etc/yum.repos.d/zerotier.repo -f

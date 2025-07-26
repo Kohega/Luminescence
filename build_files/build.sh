@@ -27,6 +27,9 @@ done
 log "Allow Samba on home dirs"
 setsebool -P samba_enable_home_dirs=1
 
+log "Enable loading kernel modules"
+setsebool -P domain_kernel_load_modules on
+
 log "Enabling system services"
 systemctl enable podman.socket syncthing@kohega.service zerotier-one.service lactd.service
 
@@ -36,7 +39,13 @@ echo "import \"/usr/share/kohega/just/kohega.just\"" >>/usr/share/ublue-os/justf
 log "Adding Virtual dummy display"
 echo_group /ctx/edid.sh
 
+log "Rebuild initramfs"
+echo_group /ctx/build-initramfs.sh
+
 log "Post build cleanup"
 echo_group /ctx/cleanup.sh
+
+log "Set firewall to Home"
+firewall-cmd --set-default-zone=home
 
 log "Build complete"
