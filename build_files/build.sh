@@ -56,7 +56,4 @@ echo_group /ctx/build-initramfs.sh
 log "Post build cleanup"
 echo_group /ctx/cleanup.sh
 
-log "Set firewall to Home"
-firewall-cmd --set-default-zone=home
-
 log "Build complete"
