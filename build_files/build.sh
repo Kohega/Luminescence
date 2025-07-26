@@ -27,7 +27,7 @@ mkdir /data /games
 
 ### Install packages
 log "Installing apps"
-echo_group /ctx/install-packages.sh
+echo_group /ctx/install_packages.sh
 
 # Install RPMs
 for rpm_file in ctx/rpm/*.rpm; do
