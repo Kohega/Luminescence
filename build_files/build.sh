@@ -1,12 +1,25 @@
 #!/bin/bash
 
-set -ouex pipefail
+set ${SET_X:+-x} -eou pipefail
 
 trap '[[ $BASH_COMMAND != echo* ]] && [[ $BASH_COMMAND != log* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
-log() {
-  echo "=== $* ==="
+function echo_group() {
+    local WHAT
+    WHAT="$(
+        basename "$1" .sh |
+            tr "-" " " |
+            tr "_" " "
+    )"
+    echo "::group:: == ${WHAT^^} =="
+    "$1"
+    echo "::endgroup::"
 }
+
+log() {
+  echo "== $* =="
+}
+
 
 log "Starting building"
 ### Create root directory for hdd mount points 
