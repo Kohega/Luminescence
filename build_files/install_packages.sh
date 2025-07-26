@@ -34,6 +34,8 @@ LAYERED_PACKAGES=(
     firefox
     firefox-langpacks
     lact
+    sdl2-compat
+    sdl12-compat
 )
 dnf5 install --setopt=install_weak_deps=False --allowerasing -y "${LAYERED_PACKAGES[@]}"
 
