@@ -3,7 +3,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM ghcr.io/ublue-os/bazzite:stable
+FROM ghcr.io/ublue-os/bazzite:stable AS base
 COPY system_files /
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
@@ -13,7 +13,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     ostree container commit
 
 # Aurora based (No gaming)
-FROM ghcr.io/ublue-os/aurora:stable
+FROM ghcr.io/ublue-os/aurora:stable AS elderly
 COPY system_files /
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
